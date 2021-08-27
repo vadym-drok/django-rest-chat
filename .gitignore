@@ -1,0 +1,12 @@
+venv/
+_ _ pycache _ _ /
+
+_ _ pycache _ _ 
+.idea/ 
+
+.env.dev
+.env
+
+
+*.log
+*.pot
