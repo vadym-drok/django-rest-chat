@@ -2,10 +2,11 @@ from rest_framework import generics, permissions
 from .models import Message
 from .serializers import MessageSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 
 
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def MessageList(request, pk):
     # view with a list of messages
     # pagination for 10 messages:  ..list/0/ => 1:10
@@ -14,12 +15,11 @@ def MessageList(request, pk):
     pagination_message = []
 
     for x in range(pk*10, (pk+1) * 10):
-        # create a list with 10 (or less) messages
-        try:
+        if x < len(all_messages):
+            # create a list with 10 (or less) messages
+
             b = all_messages[x]
             pagination_message.append(b)
-        except:
-            break
 
     queryset = pagination_message
     serializer = MessageSerializer(queryset, many=True)
