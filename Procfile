@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn DjangoAPI.wsgi
+web: gunicorn dj_rest_chat.wsgi
